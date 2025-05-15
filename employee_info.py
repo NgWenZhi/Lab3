@@ -23,15 +23,22 @@ def calculate_average_salary():
     average = 0
 
     #add your implementation to calculate here
+    for eachDict in employee_data:
+        emp_salary = eachDict["salary"]
+        total += emp_salary
 
-
+    average = total / len(employee_data)
+    average = round(average, 2)
     return average
 
 def get_employees_by_dept(department):
     result = []
 
     # Add your implementation from here
-
+    for eachDict in employee_data:
+        emp_dept = eachDict["department"]
+        if emp_dept == department:
+            result.append(eachDict)
 
     return result
 
