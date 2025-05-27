@@ -18,7 +18,7 @@ SORT_DESCENDING = 1
 
 ## `bubble_sort(arr, sorting_order)`
 
-### ✅ Purpose:
+### Purpose:
 Sorts a list using the **bubble sort algorithm**, with options for ascending or descending order.
 
 ---
