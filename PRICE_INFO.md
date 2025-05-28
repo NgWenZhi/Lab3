@@ -8,6 +8,7 @@ This document explains the core functions used to compute the cost of fruits usi
 
 Two dictionaries are used:
 
+```python
 price_list = {
     'apple' : 1.20,
     'orange': 1.40,
@@ -27,6 +28,7 @@ quantity_list = {
     'papaya': 1,
     'pomegranate': 2
 }
+```
 
 - price_list holds the unit price of each fruit.
 - quantity_list holds how many units of each fruit are being bought.
