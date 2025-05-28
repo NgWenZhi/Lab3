@@ -1,148 +1,114 @@
+# Explanation of Fruit Cost Calculator
 
-# Detailed Explanation of Employee Info Tracker Functions
-
-This document explains the core functions from `employee_info.py` in a clear, beginner-friendly style—just like in our previous discussion.
+This document explains the core functions used to compute the cost of fruits using `price_list` and `quantity_list`.
 
 ---
 
-## `calculate_average_salary()`
+## Data Setup
+
+Two dictionaries are defined at the top:
+
+```python
+price_list = {
+    'apple' : 1.20,
+    'orange': 1.40,
+    'watermelon': 6.50,
+    'pineapple': 2.70,
+    'pear' : 0.90,
+    'papaya': 2.95,
+    'pomegranate': 4.95
+}
+
+quantity_list = {
+    'apple': 5,
+    'orange': 5,
+    'watermelon': 1,
+    'pineapple': 2,
+    'pear' : 10,
+    'papaya': 1,
+    'pomegranate': 2
+}
+```
+
+- `price_list` holds the price per fruit.
+- `quantity_list` holds how many units of each fruit are being bought.
+
+---
+
+## `total_cost_shopping()`
 
 ### Purpose:
-Calculates the **average salary** of all employees in the `employee_data` list.
+Calculates the total cost of all fruits in `quantity_list`.
 
 ### How it works:
-```python
-total = 0
-average = 0
-```
-- Initializes two variables: `total` to sum salaries, and `average` to store the final result.
 
 ```python
-for eachDict in employee_data:
-    emp_salary = eachDict["salary"]
-    total += emp_salary
-```
-- Loops through each employee dictionary.
-- Retrieves each salary and adds it to the `total`.
+def total_cost_shopping():
+    total_cost = 0
+    for key in price_list.keys():
+        if key in quantity_list:
+            price_per_piece = price_list[key]
+            quantity = quantity_list[key]
+            total_cost += (price_per_piece * quantity)
 
-```python
-average = total / len(employee_data)
-average = round(average, 2)
+    print("total cost = ", total_cost)
+    return total_cost
 ```
-- Divides the total salary by the number of employees (`len(employee_data)`).
-- Rounds the result to 2 decimal places.
 
-```python
-return average
-```
-- Returns the average salary.
+- Initializes `total_cost` to 0.
+- Loops through all fruits in `price_list`.
+- For each fruit, checks if it exists in `quantity_list`.
+- Multiplies the unit price by the quantity and adds to the total.
+- Prints and returns the final total cost.
 
 ---
 
-## `display_all_records()`
+## `cost_of_fruits(fruit, quantity)`
 
 ### Purpose:
-Displays all employee records in a **neatly formatted table**.
+Calculates the cost of buying a specific quantity of a given fruit.
 
 ### How it works:
-```python
-print(("Name" + "\t" +"Age" + "\t" + "Department" + "\t" + "Salary").expandtabs(15))
-```
-- Prints a header row using tab characters (`\t`) for spacing.
-- `expandtabs(15)` makes sure columns are aligned.
 
 ```python
-for item in employee_data:
-    print((item["name"] + "\t" + str(item["age"]) + "\t" + item["department"] + "\t" + str(item["salary"])).expandtabs(15))
-```
-- Loops through all employees and prints their details in aligned columns.
+def cost_of_fruits(fruit, quantity):
+    for key in price_list.keys():
+        if key == fruit:
+            cost = quantity * price_list[key]
+            break
 
----
-
-## `get_employees_by_age_range(age_lower_limit, age_upper_limit)`
-
-### Purpose:
-Returns a list of employees whose ages fall **between** the specified lower and upper limits (exclusive).
-
-### How it works:
-```python
-result = []
-for item in employee_data:
-    if int(item["age"]) > int(age_lower_limit) and int(item["age"]) < int(age_upper_limit):
-        result.append(item)
-```
-- Converts ages and limits to integers.
-- Checks if the employee's age is strictly **greater than** the lower limit and **less than** the upper limit.
-- If true, adds the employee to the result list.
-
-```python
-return result
-```
-- Returns the filtered list.
-
----
-
-## `get_employees_by_dept(department)`
-
-###  Purpose:
-Filters and returns employees who belong to the **specified department**.
-
-### How it works:
-```python
-result = []
-for eachDict in employee_data:
-    emp_dept = eachDict["department"]
-    if emp_dept == department:
-        result.append(eachDict)
-```
-- Loops through each employee record.
-- If the department matches, the employee is added to the result.
-
-```python
-return result
-```
-- Returns the filtered list.
-
----
-
-## `display_records(employee_info)`
-
-### Purpose:
-Displays a given list of employee records (usually filtered).
-
-### How it works:
-- Similar to `display_all_records()`, but instead of the full list, it prints only the passed-in `employee_info`.
-
----
-
-## `display_main_menu()`
-
-### Purpose:
-Displays a user-friendly menu and reacts based on the user’s input.
-
-### Options it provides:
-```
-1 - Display all records
-2 - Display average salary
-3 - Display employee within age range
-4 - Display employee in a department
-Q - Quit
+    print("cost of ", quantity, fruit, "=", cost)
+    return cost
 ```
 
-- Uses `input()` to get the user's choice and then calls the relevant function.
+- Loops through the keys in `price_list`.
+- If the fruit name matches the input, it calculates the cost.
+- Cost is calculated by multiplying quantity with unit price.
+- Prints and returns the result.
 
 ---
 
 ## `main()`
 
 ### Purpose:
-Keeps the program running in a loop until the user chooses to quit.
+Acts as the driver function to run and test the other functions.
 
 ### How it works:
+
 ```python
-while (True):
-    display_main_menu()
+def main():
+    cost_of_fruits('apple', 10)
+    total_cost_shopping()
 ```
-- Runs the main menu over and over until the program is manually exited.
+
+- Calls `cost_of_fruits()` to calculate the cost of 10 apples.
+- Then calls `total_cost_shopping()` to compute the total cost of the full shopping list.
 
 ---
+
+## Special Notes
+
+- This code assumes fruit names are spelled correctly and exist in both dictionaries.
+- If a fruit is not found in `price_list`, `cost_of_fruits()` will throw an error because `cost` would be undefined.
+- For more robustness, a check should be added to handle fruits not in the dictionary.
+
